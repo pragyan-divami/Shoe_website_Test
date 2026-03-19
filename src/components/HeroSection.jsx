@@ -1,30 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max)
-
-const stageKeyframes = [
-  {
-    rotateX: -8,
-    rotateY: 0,
-    rotateZ: -10,
-    translateY: 0,
-    scale: 1,
-  },
-  {
-    rotateX: 12,
-    rotateY: -30,
-    rotateZ: -18,
-    translateY: -18,
-    scale: 1.08,
-  },
-  {
-    rotateX: -18,
-    rotateY: 34,
-    rotateZ: 16,
-    translateY: -30,
-    scale: 1.16,
-  },
-]
+const HeroShoeScene = lazy(() => import('./HeroShoeScene.jsx').then((module) => ({ default: module.HeroShoeScene })))
 
 export function HeroSection({ hero }) {
   const homeHref = import.meta.env.BASE_URL
@@ -56,7 +33,6 @@ export function HeroSection({ hero }) {
   }, [])
 
   const stageIndex = progress < 0.34 ? 0 : progress < 0.68 ? 1 : 2
-  const currentStage = stageKeyframes[stageIndex]
   const sceneOpacity = 1 - clamp((progress - 0.84) / 0.16, 0, 1)
 
   return (
@@ -111,14 +87,21 @@ export function HeroSection({ hero }) {
         </div>
 
         <div className="hero-shoe-stage">
-          <img
-            className="hero-product-image hero-product-image--immersive"
-            src={hero.visual.overlayImage}
-            alt={hero.visual.overlayAlt}
-            style={{
-              transform: `perspective(1600px) rotateX(${currentStage.rotateX}deg) rotateY(${currentStage.rotateY}deg) rotateZ(${currentStage.rotateZ}deg) translateY(${currentStage.translateY}px) scale(${currentStage.scale})`,
-            }}
-          />
+          <div className="hero-canvas-shell">
+            <Suspense
+              fallback={
+                <img
+                  className="hero-canvas-fallback"
+                  src={hero.visual.overlayImage}
+                  alt=""
+                  aria-hidden="true"
+                />
+              }
+            >
+              <HeroShoeScene progress={progress} />
+            </Suspense>
+          </div>
+          <span className="visually-hidden">{hero.visual.overlayAlt}</span>
           <div className="hero-shoe-shadow" />
         </div>
 
