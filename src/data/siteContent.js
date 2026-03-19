@@ -190,6 +190,28 @@ export const homepage = {
       'Warm-weather utility layers',
       'Recovery tools for post-run resets',
     ],
+    stats: {
+      eyebrow: 'Race-ready cushioning',
+      value: '38%',
+      caption: 'lighter upper package',
+    },
+    featureScenes: [
+      {
+        eyebrow: 'Phase 01',
+        title: 'CloudFrame chassis',
+        description: 'A suspended core platform that keeps the shoe floating at center stage before the detail scan begins.',
+      },
+      {
+        eyebrow: 'Phase 02',
+        title: 'Arc plate propulsion',
+        description: 'As the scene rotates, propulsion zones and torsion lines surface through the 3D space grid.',
+      },
+      {
+        eyebrow: 'Phase 03',
+        title: 'Directional traction geometry',
+        description: 'The final rotation exposes outsole grip nodes, heel geometry, and city-to-track transition control.',
+      },
+    ],
     visual: {
       image: withBase('/homepage-images/homepage-hero.png'),
       imageAlt: 'Two women trying on premium athletic footwear in a softly lit boutique setting.',
