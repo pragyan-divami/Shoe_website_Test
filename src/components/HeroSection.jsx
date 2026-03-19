@@ -34,10 +34,11 @@ export function HeroSection({ hero }) {
 
   const stageIndex = progress < 0.34 ? 0 : progress < 0.68 ? 1 : 2
   const sceneOpacity = 1 - clamp((progress - 0.84) / 0.16, 0, 1)
+  const sceneTranslateY = progress * 96
 
   return (
     <section className="hero-section hero-section--immersive" ref={sectionRef}>
-      <div className="hero-sticky-scene" style={{ opacity: sceneOpacity }}>
+      <div className="hero-sticky-scene" style={{ opacity: sceneOpacity, transform: `translateY(${sceneTranslateY}px)` }}>
         <div className="hero-scene-backdrop">
           <img className="hero-image" src={hero.visual.image} alt={hero.visual.imageAlt} />
           <div className="hero-space-grid" />
@@ -98,7 +99,7 @@ export function HeroSection({ hero }) {
                 />
               }
             >
-              <HeroShoeScene progress={progress} />
+              <HeroShoeScene modelUrl={hero.visual.model} progress={progress} />
             </Suspense>
           </div>
           <span className="visually-hidden">{hero.visual.overlayAlt}</span>

@@ -1,6 +1,7 @@
-import { Canvas, useFrame } from '@react-three/fiber'
-import { useMemo, useRef } from 'react'
-import { MathUtils } from 'three'
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'
+import { useEffect, useMemo, useRef } from 'react'
+import { Box3, MathUtils, Vector3 } from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 const sceneStages = [
   {
@@ -23,11 +24,30 @@ const sceneStages = [
   },
 ]
 
-function ShoeModel({ progress }) {
+function ShoeModel({ modelUrl, progress }) {
   const groupRef = useRef()
   const orbitRef = useRef()
-  const leftLaces = useMemo(() => Array.from({ length: 4 }, (_, index) => index), [])
-  const rightLaces = useMemo(() => Array.from({ length: 4 }, (_, index) => index), [])
+  const gltf = useLoader(GLTFLoader, modelUrl)
+  const modelScene = useMemo(() => gltf.scene.clone(true), [gltf.scene])
+
+  useEffect(() => {
+    modelScene.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true
+        child.receiveShadow = true
+      }
+    })
+
+    const box = new Box3().setFromObject(modelScene)
+    const size = box.getSize(new Vector3())
+    const center = box.getCenter(new Vector3())
+    const maxDimension = Math.max(size.x, size.y, size.z) || 1
+    const normalizedScale = 3 / maxDimension
+
+    modelScene.position.sub(center)
+    modelScene.scale.setScalar(normalizedScale)
+    modelScene.rotation.set(0, 0.22, 0)
+  }, [modelScene])
 
   useFrame((state, delta) => {
     const orbital = orbitRef.current
@@ -72,79 +92,7 @@ function ShoeModel({ progress }) {
   return (
     <group ref={orbitRef}>
       <group ref={groupRef}>
-        <mesh position={[0, -0.82, 0]} rotation={[0, 0.05, -0.14]} castShadow receiveShadow>
-          <boxGeometry args={[2.85, 0.34, 1.02]} />
-          <meshStandardMaterial color="#f5fbff" roughness={0.28} metalness={0.18} />
-        </mesh>
-
-        <mesh position={[0.35, -0.68, 0]} rotation={[0, 0.12, -0.24]} castShadow>
-          <boxGeometry args={[2.55, 0.8, 1.08]} />
-          <meshStandardMaterial color="#dce5f4" roughness={0.32} metalness={0.14} />
-        </mesh>
-
-        <mesh position={[0.88, -0.42, 0]} rotation={[0, 0.08, -0.26]} castShadow>
-          <boxGeometry args={[0.98, 0.82, 0.84]} />
-          <meshStandardMaterial color="#eef5ff" roughness={0.26} metalness={0.12} />
-        </mesh>
-
-        <mesh position={[-0.88, -0.58, 0.18]} rotation={[0, 0.12, -0.14]} castShadow>
-          <boxGeometry args={[0.92, 0.36, 0.58]} />
-          <meshStandardMaterial color="#0f1734" roughness={0.38} metalness={0.36} />
-        </mesh>
-
-        <mesh position={[-0.38, -0.22, 0]} rotation={[0, 0.12, -0.22]} castShadow>
-          <boxGeometry args={[1.25, 0.18, 0.9]} />
-          <meshStandardMaterial color="#6d38ff" emissive="#3f1d8c" emissiveIntensity={0.8} roughness={0.22} metalness={0.42} />
-        </mesh>
-
-        <mesh position={[0.42, -0.14, 0.28]} rotation={[0.08, 0.12, -0.22]} castShadow>
-          <boxGeometry args={[1.4, 0.08, 0.12]} />
-          <meshStandardMaterial color="#ffffff" roughness={0.18} metalness={0.08} />
-        </mesh>
-
-        <mesh position={[0.42, -0.14, -0.28]} rotation={[-0.08, 0.12, -0.22]} castShadow>
-          <boxGeometry args={[1.4, 0.08, 0.12]} />
-          <meshStandardMaterial color="#ffffff" roughness={0.18} metalness={0.08} />
-        </mesh>
-
-        {leftLaces.map((lace, index) => (
-          <mesh
-            key={`lace-left-${lace}`}
-            position={[0.02 + index * 0.22, 0.04 + index * 0.04, 0.22]}
-            rotation={[0.2, 0.08, 0.04]}
-            castShadow
-          >
-            <boxGeometry args={[0.18, 0.03, 0.05]} />
-            <meshStandardMaterial color="#ffffff" roughness={0.12} metalness={0.05} />
-          </mesh>
-        ))}
-
-        {rightLaces.map((lace, index) => (
-          <mesh
-            key={`lace-right-${lace}`}
-            position={[0.02 + index * 0.22, 0.04 + index * 0.04, -0.22]}
-            rotation={[-0.2, 0.08, -0.04]}
-            castShadow
-          >
-            <boxGeometry args={[0.18, 0.03, 0.05]} />
-            <meshStandardMaterial color="#ffffff" roughness={0.12} metalness={0.05} />
-          </mesh>
-        ))}
-
-        <mesh position={[1.22, 0.12, 0]} rotation={[0, 0.08, -0.22]} castShadow>
-          <boxGeometry args={[0.32, 0.54, 0.12]} />
-          <meshStandardMaterial color="#ff8a2a" emissive="#6a3200" emissiveIntensity={0.75} roughness={0.22} metalness={0.3} />
-        </mesh>
-
-        <mesh position={[-0.6, -0.82, 0]} rotation={[0, 0.1, -0.14]} castShadow>
-          <capsuleGeometry args={[0.26, 0.6, 6, 10]} />
-          <meshStandardMaterial color="#ffa24c" emissive="#7c3a00" emissiveIntensity={0.55} roughness={0.2} metalness={0.42} />
-        </mesh>
-
-        <mesh position={[0.82, -0.88, 0]} rotation={[0, 0.12, -0.22]} castShadow>
-          <capsuleGeometry args={[0.16, 0.54, 6, 10]} />
-          <meshStandardMaterial color="#d2dff0" roughness={0.16} metalness={0.26} />
-        </mesh>
+        <primitive object={modelScene} />
       </group>
     </group>
   )
@@ -174,7 +122,7 @@ function SceneCameraRig({ progress }) {
   return null
 }
 
-export function HeroShoeScene({ progress }) {
+export function HeroShoeScene({ modelUrl, progress }) {
   return (
     <Canvas
       camera={{ fov: 28, position: [0, 0.15, 5.6] }}
@@ -190,7 +138,7 @@ export function HeroShoeScene({ progress }) {
       <pointLight intensity={24} position={[0, 1.6, 1.4]} color="#7af5e1" distance={7} />
       <pointLight intensity={18} position={[-2.6, -0.6, 2]} color="#ff8a2a" distance={6} />
       <SceneCameraRig progress={progress} />
-      <ShoeModel progress={progress} />
+      <ShoeModel modelUrl={modelUrl} progress={progress} />
     </Canvas>
   )
 }
