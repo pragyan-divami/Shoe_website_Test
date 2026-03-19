@@ -1,7 +1,7 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { HeroShoeScene } from './HeroShoeScene.jsx'
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max)
-const HeroShoeScene = lazy(() => import('./HeroShoeScene.jsx').then((module) => ({ default: module.HeroShoeScene })))
 
 export function HeroSection({ hero }) {
   const homeHref = import.meta.env.BASE_URL
@@ -89,18 +89,7 @@ export function HeroSection({ hero }) {
 
         <div className="hero-shoe-stage">
           <div className="hero-canvas-shell">
-            <Suspense
-              fallback={
-                <img
-                  className="hero-canvas-fallback"
-                  src={hero.visual.overlayImage}
-                  alt=""
-                  aria-hidden="true"
-                />
-              }
-            >
-              <HeroShoeScene modelUrl={hero.visual.model} progress={progress} />
-            </Suspense>
+            <HeroShoeScene modelUrl={hero.visual.model} progress={progress} />
           </div>
           <span className="visually-hidden">{hero.visual.overlayAlt}</span>
           <div className="hero-shoe-shadow" />
