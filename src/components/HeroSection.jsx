@@ -4,7 +4,6 @@ import { HeroShoeScene } from './HeroShoeScene.jsx'
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max)
 
 export function HeroSection({ hero }) {
-  const homeHref = import.meta.env.BASE_URL
   const sectionRef = useRef(null)
   const [progress, setProgress] = useState(0)
 
@@ -35,6 +34,7 @@ export function HeroSection({ hero }) {
   const stageIndex = progress < 0.34 ? 0 : progress < 0.68 ? 1 : 2
   const sceneOpacity = 1 - clamp((progress - 0.84) / 0.16, 0, 1)
   const sceneTranslateY = progress * 96
+  const activeScene = hero.featureScenes[stageIndex]
 
   return (
     <section className="hero-section hero-section--immersive" ref={sectionRef}>
@@ -47,43 +47,9 @@ export function HeroSection({ hero }) {
           <div className="hero-space-ring hero-space-ring--two" />
         </div>
 
-        <div className="hero-copy hero-copy--immersive">
-          <p className="section-kicker">{hero.kicker}</p>
-          <h1>{hero.title}</h1>
-          <p className="hero-summary">{hero.description}</p>
-          <div className="hero-actions">
-            {hero.actions.map((action) => (
-              <a
-                key={action.label}
-                className={action.kind === 'primary' ? 'cta-button' : 'cta-button cta-button--ghost'}
-                href={homeHref}
-              >
-                {action.label}
-              </a>
-            ))}
-          </div>
-        </div>
-
         <div className="hero-progress-label">
-          <span>Scroll to inspect</span>
-          <strong>{Math.round(progress * 100)}%</strong>
-        </div>
-
-        <div className="hero-feature-stack">
-          {hero.featureScenes.map((scene, index) => {
-            const isActive = stageIndex === index
-
-            return (
-              <article
-                className={isActive ? 'hero-feature-card is-active' : 'hero-feature-card'}
-                key={scene.title}
-              >
-                <p>{scene.eyebrow}</p>
-                <h2>{scene.title}</h2>
-                <span>{scene.description}</span>
-              </article>
-            )
-          })}
+          <span>Feature</span>
+          <strong>{`0${stageIndex + 1}`}</strong>
         </div>
 
         <div className="hero-shoe-stage">
@@ -94,19 +60,11 @@ export function HeroSection({ hero }) {
           <div className="hero-shoe-shadow" />
         </div>
 
-        <div className="hero-stat-card hero-stat-card--immersive">
-          <p>{hero.stats.eyebrow}</p>
-          <strong>{hero.stats.value}</strong>
-          <span>{hero.stats.caption}</span>
-        </div>
-
-        <div className="hero-highlight-rail">
-          {hero.highlights.map((highlight) => (
-            <div className="hero-highlight-pill" key={highlight}>
-              {highlight}
-            </div>
-          ))}
-        </div>
+        <article className="hero-feature-screen" key={activeScene.title}>
+          <p>{activeScene.eyebrow}</p>
+          <h1>{activeScene.title}</h1>
+          <span>{activeScene.description}</span>
+        </article>
       </div>
     </section>
   )
