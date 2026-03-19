@@ -1,3 +1,5 @@
+const withBase = (path) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+
 export const utilityLinks = [
   'Help',
   'Orders',
@@ -189,9 +191,9 @@ export const homepage = {
       'Recovery tools for post-run resets',
     ],
     visual: {
-      image: '/homepage-images/homepage-hero.png',
+      image: withBase('/homepage-images/homepage-hero.png'),
       imageAlt: 'Two women trying on premium athletic footwear in a softly lit boutique setting.',
-      overlayImage: '/homepage-images/global-direction.png',
+      overlayImage: withBase('/homepage-images/global-direction.png'),
       overlayAlt: 'Floating performance sneaker in motion with bright directional studio lighting.',
     },
   },
@@ -205,8 +207,8 @@ export const homepage = {
       { label: 'See matching layers', kind: 'secondary' },
     ],
     tone: 'warm',
-    image: '/homepage-images/secondary-promo.png',
-    hoverVideo: '/homepage-images/training-studio-hover.mp4',
+    image: withBase('/homepage-images/secondary-promo.png'),
+    hoverVideo: withBase('/homepage-images/training-studio-hover.mp4'),
     imageAlt: 'Performance trainer suspended in a bright studio environment.',
   },
   featured: {
@@ -221,7 +223,7 @@ export const homepage = {
         description: 'Engineered mesh. Fast rebound.',
         cta: 'Shop racers',
         tone: 'brand',
-        image: '/homepage-images/featured-race-collection.png',
+        image: withBase('/homepage-images/featured-race-collection.png'),
         imageAlt: 'Performance running shoe with soft neutral styling and travel accessories.',
       },
       {
@@ -230,7 +232,7 @@ export const homepage = {
         description: 'Soft foam. Minimal feel.',
         cta: 'View recovery',
         tone: 'cool',
-        image: '/homepage-images/featured-recovery.png',
+        image: withBase('/homepage-images/featured-recovery.png'),
         imageAlt: 'Minimal white recovery slides styled in a wellness-inspired setting.',
       },
       {
@@ -239,7 +241,7 @@ export const homepage = {
         description: 'Light pack. Easy styling.',
         cta: 'Explore travel',
         tone: 'light',
-        image: '/homepage-images/featured-travel-edit.png',
+        image: withBase('/homepage-images/featured-travel-edit.png'),
         imageAlt: 'Modern sneaker styled for travel on a light stone counter with soft natural light.',
       },
     ],
@@ -255,7 +257,7 @@ export const homepage = {
         description: 'Road and race-day speed.',
         cta: 'Shop running',
         tone: 'brand',
-        image: '/homepage-images/sport-running.png',
+        image: withBase('/homepage-images/sport-running.png'),
         imageAlt: 'Performance running shoe floating above a clean urban road scene.',
       },
       {
@@ -263,7 +265,7 @@ export const homepage = {
         description: 'Grip and stable support.',
         cta: 'Shop training',
         tone: 'warm',
-        image: '/homepage-images/sport-training.png',
+        image: withBase('/homepage-images/sport-training.png'),
         imageAlt: 'Training shoe in a gym setting with weights and warm directional light.',
       },
       {
@@ -271,7 +273,7 @@ export const homepage = {
         description: 'Traction for quick cuts.',
         cta: 'Shop football',
         tone: 'cool',
-        image: '/homepage-images/sport-football.png',
+        image: withBase('/homepage-images/sport-football.png'),
         imageAlt: 'Football boot on a lit field with stadium lights in the background.',
       },
       {
@@ -279,7 +281,7 @@ export const homepage = {
         description: 'Court control and lift.',
         cta: 'Shop basketball',
         tone: 'light',
-        image: '/homepage-images/sport-basketball.png',
+        image: withBase('/homepage-images/sport-basketball.png'),
         imageAlt: 'Basketball shoe on a hardwood court with a basketball and dramatic arena lights.',
       },
     ],
@@ -292,7 +294,7 @@ export const homepage = {
         'A wide campaign band keeps the cadence of hero, promo, card row, category grid, then another image-led story.',
       cta: 'Discover trail edit',
       tone: 'cool',
-      image: '/homepage-images/campaign-trail-edit.png',
+      image: withBase('/homepage-images/campaign-trail-edit.png'),
       imageAlt: 'Neutral trail shoes photographed on natural rock terrain in warm outdoor light.',
     },
     {
@@ -302,7 +304,7 @@ export const homepage = {
         'This band gives the homepage one non-product commerce message before the footer, similar to service-oriented promotional content.',
       cta: 'Join membership',
       tone: 'brand',
-      image: '/homepage-images/campaign-membership-service.png',
+      image: withBase('/homepage-images/campaign-membership-service.png'),
       imageAlt: 'Women trying on athletic shoes in a premium boutique-style fitting environment.',
     },
   ],

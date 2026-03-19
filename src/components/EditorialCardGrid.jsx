@@ -1,4 +1,6 @@
 export function EditorialCardGrid({ section }) {
+  const homeHref = import.meta.env.BASE_URL
+
   return (
     <section className="homepage-section">
       <div className="section-heading">
@@ -19,7 +21,7 @@ export function EditorialCardGrid({ section }) {
               <p className="editorial-card-tag">{card.tag}</p>
               <h3>{card.title}</h3>
               <p>{card.description}</p>
-              <a className="cta-link" href="/">
+              <a className="cta-link" href={homeHref}>
                 {card.cta}
               </a>
             </div>

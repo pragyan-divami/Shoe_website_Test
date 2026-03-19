@@ -1,4 +1,6 @@
 export function SportCategoryGrid({ section }) {
+  const homeHref = import.meta.env.BASE_URL
+
   return (
     <section className="homepage-section">
       <div className="section-heading">
@@ -18,7 +20,7 @@ export function SportCategoryGrid({ section }) {
             <div className="sport-card-body">
               <h3>{category.title}</h3>
               <p>{category.description}</p>
-              <a className="cta-link" href="/">
+              <a className="cta-link" href={homeHref}>
                 {category.cta}
               </a>
             </div>

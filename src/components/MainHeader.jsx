@@ -1,10 +1,12 @@
 const utilityActions = ['Search', 'Favourites', 'Bag', 'Profile']
 
 export function MainHeader({ activeMenu, items, onMenuChange }) {
+  const homeHref = import.meta.env.BASE_URL
+
   return (
     <header className="main-header">
       <div className="shell-container main-header-row">
-        <a className="brand-mark" href="/" aria-label="Go to homepage">
+        <a className="brand-mark" href={homeHref} aria-label="Go to homepage">
           <span className="brand-mark-badge">S</span>
           <span className="brand-mark-text">
             <strong>Stride State</strong>

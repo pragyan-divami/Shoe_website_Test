@@ -3,6 +3,7 @@ import { useRef } from 'react'
 export function SecondaryPromoSection({ promo }) {
   const videoRef = useRef(null)
   const hasHoverVideo = Boolean(promo.hoverVideo)
+  const homeHref = import.meta.env.BASE_URL
 
   const playHoverVideo = () => {
     if (!hasHoverVideo || !videoRef.current) {
@@ -55,7 +56,7 @@ export function SecondaryPromoSection({ promo }) {
             <a
               key={action.label}
               className={action.kind === 'primary' ? 'cta-link' : 'cta-link cta-link--muted'}
-              href="/"
+              href={homeHref}
             >
               {action.label}
             </a>

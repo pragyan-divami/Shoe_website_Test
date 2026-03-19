@@ -1,4 +1,6 @@
 export function HeroSection({ hero }) {
+  const homeHref = import.meta.env.BASE_URL
+
   return (
     <section className="hero-section">
       <div className="hero-copy">
@@ -10,7 +12,7 @@ export function HeroSection({ hero }) {
             <a
               key={action.label}
               className={action.kind === 'primary' ? 'cta-button' : 'cta-button cta-button--ghost'}
-              href="/"
+              href={homeHref}
             >
               {action.label}
             </a>

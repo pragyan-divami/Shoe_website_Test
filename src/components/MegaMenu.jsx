@@ -1,5 +1,6 @@
 export function MegaMenu({ activeMenu, groups }) {
   const menu = groups[activeMenu] ?? groups.default
+  const homeHref = import.meta.env.BASE_URL
 
   return (
     <section className="mega-menu" aria-label={`${menu.label} menu`}>
@@ -10,7 +11,7 @@ export function MegaMenu({ activeMenu, groups }) {
             <ul>
               {column.links.map((link) => (
                 <li key={link}>
-                  <a href="/">{link}</a>
+                  <a href={homeHref}>{link}</a>
                 </li>
               ))}
             </ul>
@@ -20,7 +21,7 @@ export function MegaMenu({ activeMenu, groups }) {
           <p className="section-kicker">{menu.feature.kicker}</p>
           <h2>{menu.feature.title}</h2>
           <p>{menu.feature.description}</p>
-          <a className="feature-link" href="/">
+          <a className="feature-link" href={homeHref}>
             {menu.feature.cta}
           </a>
         </aside>
