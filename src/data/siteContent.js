@@ -213,9 +213,7 @@ export const homepage = {
       },
     ],
     visual: {
-      image: withBase('/homepage-images/homepage-hero.png'),
-      imageAlt: 'Two women trying on premium athletic footwear in a softly lit boutique setting.',
-      model: withBase('/models/shoe.glb'),
+      model: withBase('/models/shoe-gltf/scene.gltf'),
       overlayImage: withBase('/homepage-images/global-direction.png'),
       overlayAlt: 'Floating performance sneaker in motion with bright directional studio lighting.',
     },
