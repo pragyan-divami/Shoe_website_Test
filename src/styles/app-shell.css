@@ -395,25 +395,34 @@
   top: var(--space-7);
   left: var(--space-7);
   z-index: 2;
-  width: min(230px, 100%);
-  padding: var(--space-5);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
+  width: min(300px, calc(100% - 48px));
+  padding: var(--space-6);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.1)),
+    rgba(22, 26, 44, 0.34);
+  backdrop-filter: blur(22px) saturate(1.15);
+  box-shadow:
+    0 20px 44px rgba(20, 18, 36, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
   color: var(--color-text-inverse);
 }
 
 .hero-stat-card p,
 .hero-stat-card span {
   margin: 0;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.22);
 }
 
 .hero-stat-card strong {
   display: block;
-  margin: var(--space-3) 0;
-  font-size: 2.8rem;
+  margin: var(--space-3) 0 var(--space-2);
+  font-size: clamp(3.4rem, 6vw, 4.8rem);
   line-height: 1;
+  letter-spacing: -0.06em;
+  text-shadow: 0 8px 26px rgba(0, 0, 0, 0.2);
 }
 
 .hero-product-card {
