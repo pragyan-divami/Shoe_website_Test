@@ -7,6 +7,30 @@ const formatCurrency = (value) =>
     maximumFractionDigits: 0,
   }).format(value)
 
+function GeneratedProductVisual({ product }) {
+  const { generatedVisual } = product
+
+  return (
+    <div
+      className={`plp-generated-visual plp-generated-visual--${generatedVisual.shape ?? 'blade'}`}
+      style={{
+        '--plp-gen-base': generatedVisual.palette[0],
+        '--plp-gen-accent': generatedVisual.palette[1],
+        '--plp-gen-highlight': generatedVisual.palette[2],
+        '--plp-gen-glow': generatedVisual.glow,
+      }}
+    >
+      <div className="plp-generated-orb" />
+      <div className="plp-generated-shoe">
+        <span className="plp-generated-sole" />
+        <span className="plp-generated-upper" />
+        <span className="plp-generated-cut" />
+      </div>
+      <div className="plp-generated-grid" />
+    </div>
+  )
+}
+
 function ProductCard({ product, homeHref }) {
   const discountPercentage =
     product.salePrice && product.price > product.salePrice
@@ -21,7 +45,11 @@ function ProductCard({ product, homeHref }) {
             {product.label}
           </span>
         ) : null}
-        <img src={product.image} alt={product.name} />
+        {product.generatedVisual ? (
+          <GeneratedProductVisual product={product} />
+        ) : (
+          <img src={product.image} alt={product.name} />
+        )}
       </div>
       <div className="plp-card-body">
         <h3>{product.name}</h3>
@@ -329,7 +357,7 @@ export function ProductListingPage({ pageData }) {
       <section className="plp-shell">
         <div className="plp-header">
           <div>
-            <p className="section-kicker">Performance Catalog</p>
+            <p className="section-kicker">{pageData.page.eyebrow ?? 'Performance Catalog'}</p>
             <h1>
               {pageData.page.title} <span>({sortedProducts.length})</span>
             </h1>

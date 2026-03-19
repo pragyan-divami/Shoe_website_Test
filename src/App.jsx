@@ -11,13 +11,20 @@ import {
   homepage,
   megaMenuGroups,
   primaryNavItems,
-  productListingPage,
+  productListingPages,
   promoMessages,
   utilityLinks,
 } from './data/siteContent.js'
 import './styles/app-shell.css'
 
-const getCurrentPage = () => (window.location.hash === '#/men/shoes' ? 'men-shoes' : 'home')
+const pageByHash = {
+  '#/men/shoes': 'men',
+  '#/women/shoes': 'women',
+  '#/kids/shoes': 'kids',
+  '#/flight-lab/negen': 'lab',
+}
+
+const getCurrentPage = () => pageByHash[window.location.hash] ?? 'home'
 
 function App() {
   const [activeMenu, setActiveMenu] = useState(primaryNavItems[0].id)
@@ -28,7 +35,7 @@ function App() {
       const page = getCurrentPage()
 
       setCurrentPage(page)
-      setActiveMenu(page === 'men-shoes' ? 'men' : primaryNavItems[0].id)
+      setActiveMenu(page === 'home' ? primaryNavItems[0].id : page)
     }
 
     window.addEventListener('hashchange', handleHashChange)
@@ -42,12 +49,12 @@ function App() {
   const handleMenuChange = (menuId) => {
     setActiveMenu(menuId)
 
-    if (menuId === 'men') {
-      window.location.hash = '/men/shoes'
-      return
-    }
+    if (menuId === 'men') window.location.hash = '/men/shoes'
+    else if (menuId === 'women') window.location.hash = '/women/shoes'
+    else if (menuId === 'kids') window.location.hash = '/kids/shoes'
+    else if (menuId === 'lab') window.location.hash = '/flight-lab/negen'
+    else window.location.hash = ''
 
-    window.location.hash = ''
   }
 
   return (
@@ -60,8 +67,8 @@ function App() {
       promoMessages={promoMessages}
       utilityLinks={utilityLinks}
     >
-      {currentPage === 'men-shoes' ? (
-        <ProductListingPage pageData={productListingPage} />
+      {currentPage !== 'home' ? (
+        <ProductListingPage pageData={productListingPages[currentPage]} />
       ) : (
         <main className="page-content">
           <HeroSection hero={homepage.hero} />
